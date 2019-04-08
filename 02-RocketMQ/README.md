@@ -3,4 +3,4 @@
 - 使用RocketMQ来消费消息
 
 # 2. OrderExample(订单消息)
-- RocketMQ使用FIFO顺序提供有序消息
+- RocketMQ使用FIFO(first input first output先进先出)顺序提供有序消息
