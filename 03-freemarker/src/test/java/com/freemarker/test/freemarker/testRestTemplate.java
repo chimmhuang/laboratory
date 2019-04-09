@@ -1,4 +1,4 @@
-package com.xuecheng.test.freemarker;
+package com.freemarker.test.freemarker;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
