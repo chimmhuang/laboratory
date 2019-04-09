@@ -55,6 +55,8 @@ public class FreemarkerTest {
         Map<String, Object> map = new HashMap<>();
         //向数据模型放数据
         map.put("name","吃茫茫");
+
+        //放入对象数据
         Student stu1 = new Student();
         stu1.setName("小明");
         stu1.setAge(18);
@@ -65,6 +67,8 @@ public class FreemarkerTest {
         stu2.setMondy(200.1f);
         stu2.setAge(19);
 //        stu2.setBirthday(new Date());
+
+        //放入List集合数据
         List<Student> friends = new ArrayList<>();
         friends.add(stu1);
         stu2.setFriends(friends);
@@ -72,15 +76,17 @@ public class FreemarkerTest {
         List<Student> stus = new ArrayList<>();
         stus.add(stu1);
         stus.add(stu2);
-        //向数据模型放数据
-        map.put("stus",stus);
+
+
         //准备map数据
         HashMap<String,Student> stuMap = new HashMap<>();
         stuMap.put("stu1",stu1);
         stuMap.put("stu2",stu2);
+
+
         //向数据模型放数据
+        map.put("stus",stus);
         map.put("stu1",stu1);
-        //向数据模型放数据
         map.put("stuMap",stuMap);
         return map;
     }
