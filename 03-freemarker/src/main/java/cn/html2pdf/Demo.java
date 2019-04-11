@@ -286,7 +286,7 @@ public class Demo {
         ITextRenderer renderer = new ITextRenderer();
         renderer.setDocumentFromString(html);
         ITextFontResolver fontResolver = renderer.getFontResolver();
-//        fontResolver.addFont("/home/yunjie/lyj/SimSun.ttf", BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
+        //itext不支持中文 ，需要手动添加中文字体
         fontResolver.addFont("/Users/huangshuai/IdeaProjects/实验室/03-freemarker/src/main/resources/fonts/simsun.ttc", BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
         renderer.layout();
         renderer.createPDF(out);
