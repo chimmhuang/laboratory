@@ -17,3 +17,6 @@
     - 对用户的目标主题的已提交消息可能会失败。目前，它取决于日志记录。RocketMQ本身的高可用性机制确保了高可用性。如果要确保事务性消息不会丢失并且保证事务完整性，建议使用同步双写。机制。
     - 事务消息的生产者ID不能与其他类型消息的生产者ID共享。与其他类型的消息不同，事务性消息允许后向查询。MQ Server按其生产者ID查询客户端。
 
+
+![RocketMQ事务消息](https://github.com/chimmhuang/laboratory/blob/master/02-RocketMQ/images/RocketMQ%E4%BA%8B%E5%8A%A1%E6%B6%88%E6%81%AF.png)
+![RocketMQ分布式事务.png](https://github.com/chimmhuang/laboratory/blob/master/02-RocketMQ/images/RocketMQ%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1.png)
