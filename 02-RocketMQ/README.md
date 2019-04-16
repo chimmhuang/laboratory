@@ -20,3 +20,6 @@
 
 ![RocketMQ事务消息](https://github.com/chimmhuang/laboratory/blob/master/02-RocketMQ/images/RocketMQ%E4%BA%8B%E5%8A%A1%E6%B6%88%E6%81%AF.png)
 ![RocketMQ分布式事务.png](https://github.com/chimmhuang/laboratory/blob/master/02-RocketMQ/images/RocketMQ%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1.png)
+
+# 4. BroadcastingExample(广播消息)
+- 广播正在向主题的所有订阅者发送消息。如果您希望所有订阅者都收到有关主题的消息，则广播是一个不错的选择。
