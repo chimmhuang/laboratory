@@ -5,7 +5,9 @@ import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyContext;
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyStatus;
 import org.apache.rocketmq.client.consumer.listener.MessageListenerConcurrently;
 import org.apache.rocketmq.common.message.MessageExt;
+import org.apache.rocketmq.remoting.common.RemotingHelper;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 /**
@@ -36,7 +38,31 @@ public class Consumer01 {
         //注册消息监听器
         consumer.registerMessageListener(new MessageListenerConcurrently() {
             public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> msgs, ConsumeConcurrentlyContext context) {
-                System.out.printf("%s 收到新消息：%s %n",Thread.currentThread().getName(),msgs);
+                //System.out.printf("%s 收到新消息：%s %n",Thread.currentThread().getName(),msgs);
+                for (MessageExt msg : msgs) {
+                    try {
+
+                        //获取主题
+                        String topic = msg.getTopic();
+
+                        //获取标签
+                        String tags = msg.getTags();
+
+                        //获取信息
+                        byte[] body = msg.getBody();
+                        String result = new String(body, RemotingHelper.DEFAULT_CHARSET);
+
+                        System.out.println("Consumer消费信息---topic:" + topic + ",tags:" + tags + ",result:" + result);
+
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+
+                        //消息重试
+                        return ConsumeConcurrentlyStatus.RECONSUME_LATER;
+                    }
+                }
+
+                //成功消费消息
                 return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
             }
         });
