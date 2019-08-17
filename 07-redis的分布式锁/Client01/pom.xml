@@ -8,9 +8,9 @@
     <artifactId>Client01</artifactId>
     <version>1.0-SNAPSHOT</version>
     <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.1.3.RELEASE</version>
+        <artifactId>07-redis的分布式锁</artifactId>
+        <groupId>com.chimm</groupId>
+        <version>1.0-SNAPSHOT</version>
     </parent>
 
     <dependencies>

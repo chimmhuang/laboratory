@@ -7,6 +7,12 @@
     <groupId>com.chimm</groupId>
     <artifactId>demo01-jcl</artifactId>
     <version>1.0-SNAPSHOT</version>
+	
+	<parent>
+        <artifactId>05-logging</artifactId>
+        <groupId>com.chimm</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
 
     <dependencies>
         <!-- 导入jcl包，若不导入其他的日志包，那么jcl将会默认使用jul（java.util.logging） -->

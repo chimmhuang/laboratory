@@ -8,6 +8,12 @@
     <version>1.0-SNAPSHOT</version>
     <artifactId>Demo01</artifactId>
 
+    <parent>
+        <artifactId>02-RocketMQ</artifactId>
+        <groupId>com.chimm</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
     <dependencies>
         <!-- rocketmq客户端依赖 -->
         <dependency>
