@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.chimm</groupId>
-	<artifactId>09-zookeeper</artifactId>
+	<artifactId>09-zookeeper_lock</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>09-zookeeper</name>
 	<description>基于zookeeper的分布式锁Demo</description>
