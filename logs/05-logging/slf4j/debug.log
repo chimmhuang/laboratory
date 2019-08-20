@@ -1,0 +1,2 @@
+2019-05-06 09:37:00  [ main:0 ] - [ ERROR ]  slf4j - error - abcd
+2019-05-06 09:37:00  [ main:4 ] - [ INFO ]  slf4j - error - abcd
