@@ -17,7 +17,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class TicketTest {
 
     /** 100张票 */
-    private Integer count = 100;
+    private static Integer count = 100;
 
     @Test
     public void ticketTest() throws Exception {
@@ -44,8 +44,10 @@ public class TicketTest {
         @Override
         public void run() {
             while (count > 0) {
-                if (count > 0) {
-                    System.out.println(Thread.currentThread().getName() + "售出第" + (count--) + "张票");
+                synchronized (count) {
+                    if (count > 0) {
+                        System.out.println(Thread.currentThread().getName() + "售出第" + (count--) + "张票");
+                    }
                 }
 
                 try {
