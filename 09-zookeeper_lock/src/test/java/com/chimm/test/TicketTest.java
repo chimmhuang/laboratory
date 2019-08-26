@@ -3,8 +3,11 @@ package com.chimm.test;
 import com.chimm.Application;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.concurrent.locks.Lock;
 
 /**
  * 火车票购买案列
@@ -15,6 +18,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class)
 public class TicketTest {
+
+    @Autowired
+    private Lock lock;
 
     /** 100张票 */
     private static Integer count = 100;
@@ -44,11 +50,11 @@ public class TicketTest {
         @Override
         public void run() {
             while (count > 0) {
-                synchronized (count) {
-                    if (count > 0) {
-                        System.out.println(Thread.currentThread().getName() + "售出第" + (count--) + "张票");
-                    }
+                lock.lock();
+                if (count > 0) {
+                    System.out.println(Thread.currentThread().getName() + "售出第" + (count--) + "张票");
                 }
+                lock.unlock();
 
                 try {
                     Thread.sleep(200);
