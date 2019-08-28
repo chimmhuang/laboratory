@@ -1,6 +1,7 @@
 package com.chimm.test;
 
 import com.chimm.Application;
+import com.chimm.lock.ZookeeperImproveLock;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +20,8 @@ import java.util.concurrent.locks.Lock;
 @SpringBootTest(classes = Application.class)
 public class TicketTest {
 
-    @Autowired
-    private Lock lock;
+//    @Autowired
+//    private Lock lock;
 
     /** 100张票 */
     private static Integer count = 100;
@@ -50,6 +51,7 @@ public class TicketTest {
         @Override
         public void run() {
             while (count > 0) {
+                Lock lock = new ZookeeperImproveLock();
                 lock.lock();
                 if (count > 0) {
                     System.out.println(Thread.currentThread().getName() + "售出第" + (count--) + "张票");
