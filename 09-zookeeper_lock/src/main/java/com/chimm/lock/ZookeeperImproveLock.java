@@ -25,7 +25,8 @@ public class ZookeeperImproveLock implements Lock {
     /** zookeeper获取锁的跟路径 */
     private static final String LOCK_PATH = "/LOCK";
     /** zookeeper的地址及端口 */
-    private static final String ZOOKEEPER_IP_PORT = "172.16.120.140:2181";
+//    private static final String ZOOKEEPER_IP_PORT = "172.16.120.140:2181";
+    private static final String ZOOKEEPER_IP_PORT = "192.168.48.129";
 
     /** zookeeper客户端 */
     private ZkClient client = new ZkClient(ZOOKEEPER_IP_PORT, 100000, 100000, new SerializableSerializer());
