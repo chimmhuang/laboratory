@@ -44,6 +44,13 @@
 			<version>2.1.5</version>
 		</dependency>
 
+		<!-- 引入zkClient -->
+		<dependency>
+			<groupId>com.101tec</groupId>
+			<artifactId>zkclient</artifactId>
+			<version>0.11</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
