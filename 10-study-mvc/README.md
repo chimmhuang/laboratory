@@ -1,6 +1,3 @@
-# GitHub源码地址
-
-
 # 1.[★] 创建一个DispatherServlet继承HttpServlet
 1. 重写**init**方法
 ```java
