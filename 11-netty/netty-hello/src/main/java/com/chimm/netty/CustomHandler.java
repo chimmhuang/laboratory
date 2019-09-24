@@ -44,6 +44,104 @@ public class CustomHandler extends SimpleChannelInboundHandler<HttpObject> {
             //将数据写到缓存区，并刷新到客户端
             channelHandlerContext.writeAndFlush(response);
         }
+    }
 
+    /**
+     * channel注册
+     */
+    @Override
+    public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
+        System.out.println("channel。。。注册");
+        super.channelRegistered(ctx);
+    }
+
+    /**
+     * channel移除（取消注册）
+     */
+    @Override
+    public void channelUnregistered(ChannelHandlerContext ctx) throws Exception {
+        System.out.println("channel。。。移除");
+        super.channelUnregistered(ctx);
+    }
+
+    /**
+     * channel活跃
+     */
+    @Override
+    public void channelActive(ChannelHandlerContext ctx) throws Exception {
+        System.out.println("channel。。。活跃");
+        super.channelActive(ctx);
+    }
+
+    /**
+     * channel不活跃
+     */
+    @Override
+    public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+        System.out.println("channel。。。不活跃");
+        super.channelInactive(ctx);
+    }
+
+    /**
+     * channel读取
+     */
+    @Override
+    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+        System.out.println("channel。。。读取");
+        super.channelRead(ctx, msg);
+    }
+
+    /**
+     * channel读取完毕
+     */
+    @Override
+    public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
+        System.out.println("channel。。。读取完毕");
+        super.channelReadComplete(ctx);
+    }
+
+    /**
+     * 用户事件触发
+     */
+    @Override
+    public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
+        System.out.println("用户事件。。。触发");
+        super.userEventTriggered(ctx, evt);
+    }
+
+    /**
+     * channel可写更改
+     */
+    @Override
+    public void channelWritabilityChanged(ChannelHandlerContext ctx) throws Exception {
+        System.out.println("channel。。。可写更改");
+        super.channelWritabilityChanged(ctx);
+    }
+
+    /**
+     * 捕获到异常
+     */
+    @Override
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+        System.out.println("捕获到异常");
+        super.exceptionCaught(ctx, cause);
+    }
+
+    /**
+     * 助手类已添加
+     */
+    @Override
+    public void handlerAdded(ChannelHandlerContext ctx) throws Exception {
+        System.out.println("助手类已添加");
+        super.handlerAdded(ctx);
+    }
+
+    /**
+     * 助手类已移除
+     */
+    @Override
+    public void handlerRemoved(ChannelHandlerContext ctx) throws Exception {
+        System.out.println("助手类已移除");
+        super.handlerRemoved(ctx);
     }
 }
