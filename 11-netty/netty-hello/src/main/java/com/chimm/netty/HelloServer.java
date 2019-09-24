@@ -5,7 +5,6 @@ import io.netty.channel.ChannelFuture;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import io.netty.handler.codec.http.HttpServerCodec;
 
 /**
  * 实现客户端发送一个请求，服务器会返回hello netty
@@ -31,7 +30,7 @@ public class HelloServer {
             //netty服务器的配置
             serverBootstrap.group(bossGroup, workerGroup)   //设置主从线程
                     .channel(NioServerSocketChannel.class)  //设置nio的双向通道
-                    .childHandler(new HttpServerCodec());   //子处理器，用于处理 workerGroup
+                    .childHandler(new HelloServerInitializer());   //子处理器，用于处理 workerGroup
 
             //启动server，并且设置8088为启动的端口号，启动方式为同步
             ChannelFuture channelFuture = serverBootstrap.bind(8088).sync();
