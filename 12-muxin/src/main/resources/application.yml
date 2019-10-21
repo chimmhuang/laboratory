@@ -1,12 +1,9 @@
-centsos:
-  ip: 122.51.2.197
-
 server:
   port: 10001
 
 spring:
   datasource:
-    url: jdbc:mysql://${centsos.ip}:3306/muxin
+    url: jdbc:mysql://122.51.2.197:3306/muxin
     username: chimm
     password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver

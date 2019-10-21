@@ -20,13 +20,15 @@ import org.springframework.stereotype.Component;
 public class WSServer {
 
     /** 单例对象 */
-    public static class SingletionWSServer {
+    public static class SingletonWSServer {
+        private SingletonWSServer() { }
+
         static final WSServer instance = new WSServer();
     }
 
     /** 获取单例对象 */
     public static WSServer getInstance() {
-        return SingletionWSServer.instance;
+        return SingletonWSServer.instance;
     }
 
     private EventLoopGroup mainGroup;
@@ -34,8 +36,8 @@ public class WSServer {
     private ServerBootstrap serverBootstrap;
     private ChannelFuture channelFuture;
 
-    @Value("${server.port}")
-    private Integer nettyPort;
+    //@Value("${server.port}")
+    private Integer nettyPort = 8000;
 
     public WSServer() {
         //定义一对线程组
@@ -50,14 +52,14 @@ public class WSServer {
         //netty服务器的配置
         serverBootstrap.group(mainGroup, subGroup)   //设置主从线程
                 .channel(NioServerSocketChannel.class)  //设置nio的双向通道
-                .childHandler(null);   //子处理器，用于处理 workerGroup
+                .childHandler(new WSServerInitializer());   //子处理器，用于处理 workerGroup
     }
 
     /**
      * 启动服务器
      */
     public void start() {
-        channelFuture = serverBootstrap.bind(nettyPort);
+        this.channelFuture = serverBootstrap.bind(nettyPort);
         log.info("#####################################");
         log.info("# netty webSocket server 启动完毕");
         log.info("#####################################");
