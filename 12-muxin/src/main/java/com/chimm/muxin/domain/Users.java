@@ -21,7 +21,7 @@ public class Users {
     private String username;
     private String password;
     private String faceImage;
-    private String faceImagesBig;
+    private String faceImageBig;
     private String nickname;
     private String qrCode;
     private String clientId;
