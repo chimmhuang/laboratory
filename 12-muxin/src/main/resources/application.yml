@@ -16,3 +16,15 @@ pagehelper:
   reasonable: true
   supportMethodsArguments: true
   params: count=countSql
+
+############################################################
+#
+# 分布式文件系统 fastdfs 配置
+#
+############################################################
+fdfs:
+  soTimeout: 1501
+  connectTimeout: 601
+  thumbImage.width: 80
+  thumbImage.height: 80
+  trackerList[0]: 122.51.2.197:22122
