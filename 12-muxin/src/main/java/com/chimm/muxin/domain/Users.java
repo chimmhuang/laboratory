@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
@@ -17,6 +18,7 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @Table(name = "users")
 public class Users {
+    @Id
     private String id;
     private String username;
     private String password;
