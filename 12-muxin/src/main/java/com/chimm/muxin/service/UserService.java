@@ -1,6 +1,9 @@
 package com.chimm.muxin.service;
 
 import com.chimm.muxin.domain.Users;
+import com.chimm.muxin.domain.vo.FriendRequestVO;
+
+import java.util.List;
 
 /**
  * @author huangshuai
@@ -27,4 +30,37 @@ public interface UserService {
      * @Description: 修改用户记录
      */
     public Users updateUserInfo(Users user);
+
+    /**
+     * @Description: 搜索朋友的前置条件
+     */
+    public Integer preconditionSearchFriends(String myUserId, String friendUsername);
+
+    /**
+     * @Description: 根据用户名查询用户对象
+     */
+    public Users queryUserInfoByUsername(String username);
+
+    /**
+     * @Description: 添加好友请求记录，保存到数据库
+     */
+    public void sendFriendRequest(String myUserId, String friendUsername);
+
+    /**
+     * @Description: 查询好友请求
+     */
+    public List<FriendRequestVO> queryFriendRequestList(String acceptUserId);
+
+    /**
+     * @Description: 删除好友请求记录
+     */
+    public void deleteFriendRequest(String sendUserId, String acceptUserId);
+
+    /**
+     * @Description: 通过好友请求
+     * 1. 保存好友
+     * 2. 逆向保存好友
+     * 3. 删除好友请求记录
+     */
+    public void passFriendRequest(String sendUserId, String acceptUserId);
 }
