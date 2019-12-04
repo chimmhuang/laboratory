@@ -2,6 +2,7 @@ package com.chimm.muxin.service;
 
 import com.chimm.muxin.domain.Users;
 import com.chimm.muxin.domain.vo.FriendRequestVO;
+import com.chimm.muxin.domain.vo.MyFriendsVO;
 
 import java.util.List;
 
@@ -63,4 +64,9 @@ public interface UserService {
      * 3. 删除好友请求记录
      */
     public void passFriendRequest(String sendUserId, String acceptUserId);
+
+    /**
+     * @Description: 查询好友列表
+     */
+    public List<MyFriendsVO> queryMyFriends(String userId);
 }
