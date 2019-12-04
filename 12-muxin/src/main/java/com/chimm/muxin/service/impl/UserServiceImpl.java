@@ -4,6 +4,7 @@ import com.chimm.muxin.domain.FriendsRequest;
 import com.chimm.muxin.domain.MyFriends;
 import com.chimm.muxin.domain.Users;
 import com.chimm.muxin.domain.vo.FriendRequestVO;
+import com.chimm.muxin.domain.vo.MyFriendsVO;
 import com.chimm.muxin.enums.SearchFriendsStatusEnum;
 import com.chimm.muxin.mapper.FriendsRequestMapper;
 import com.chimm.muxin.mapper.MyFriendsMapper;
@@ -219,5 +220,11 @@ public class UserServiceImpl implements UserService {
         myFriends.setMyFriendUserId(acceptUserId);
         myFriends.setMyUserId(sendUserId);
         myFriendsMapper.insert(myFriends);
+    }
+
+    @Transactional(propagation = Propagation.SUPPORTS)
+    @Override
+    public List<MyFriendsVO> queryMyFriends(String userId) {
+        return userMapper.queryMyFriends(userId);
     }
 }

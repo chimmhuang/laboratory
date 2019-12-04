@@ -211,8 +211,24 @@ public class UserController {
         }
 
         // 4. 数据库查询好友列表
-//        List<MyFriendsVO> myFriends = userService.queryMyFriends(acceptUserId);
+        List<MyFriendsVO> myFriends = userService.queryMyFriends(acceptUserId);
 
-        return IMoocJSONResult.ok(/*myFriends*/);
+        return IMoocJSONResult.ok(myFriends);
+    }
+
+    /**
+     * @Description: 查询我的好友列表
+     */
+    @PostMapping("/myFriends")
+    public IMoocJSONResult myFriends(String userId) {
+        // 0. userId 判断不能为空
+        if (StringUtils.isBlank(userId)) {
+            return IMoocJSONResult.errorMsg("");
+        }
+
+        // 1. 数据库查询好友列表
+        List<MyFriendsVO> myFirends = userService.queryMyFriends(userId);
+
+        return IMoocJSONResult.ok(myFirends);
     }
 }
