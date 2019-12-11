@@ -3,6 +3,7 @@ package com.chimm.muxin.service;
 import com.chimm.muxin.domain.Users;
 import com.chimm.muxin.domain.vo.FriendRequestVO;
 import com.chimm.muxin.domain.vo.MyFriendsVO;
+import com.chimm.muxin.netty.ChatMsg;
 
 import java.util.List;
 
@@ -69,4 +70,14 @@ public interface UserService {
      * @Description: 查询好友列表
      */
     public List<MyFriendsVO> queryMyFriends(String userId);
+
+    /**
+     * @Description: 保存聊天消息到数据库
+     */
+    public String saveMsg(ChatMsg chatMsg);
+
+    /**
+     * @Description: 批量签收消息
+     */
+    public void updateMsgSigned(List<String> msgIdList);
 }

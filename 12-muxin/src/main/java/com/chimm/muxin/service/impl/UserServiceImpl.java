@@ -5,10 +5,13 @@ import com.chimm.muxin.domain.MyFriends;
 import com.chimm.muxin.domain.Users;
 import com.chimm.muxin.domain.vo.FriendRequestVO;
 import com.chimm.muxin.domain.vo.MyFriendsVO;
+import com.chimm.muxin.enums.MsgSignFlagEnum;
 import com.chimm.muxin.enums.SearchFriendsStatusEnum;
+import com.chimm.muxin.mapper.ChatMsgMapper;
 import com.chimm.muxin.mapper.FriendsRequestMapper;
 import com.chimm.muxin.mapper.MyFriendsMapper;
 import com.chimm.muxin.mapper.UsersMapper;
+import com.chimm.muxin.netty.ChatMsg;
 import com.chimm.muxin.service.UserService;
 import com.chimm.muxin.utils.FastDFSClient;
 import com.chimm.muxin.utils.FileUtils;
@@ -46,6 +49,8 @@ public class UserServiceImpl implements UserService {
     private MyFriendsMapper myFriendsMapper;
     @Autowired
     private FriendsRequestMapper friendsRequestMapper;
+    @Autowired
+    private ChatMsgMapper chatMsgMapper;
 
     @Transactional(propagation = Propagation.SUPPORTS)
     @Override
@@ -226,5 +231,29 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<MyFriendsVO> queryMyFriends(String userId) {
         return userMapper.queryMyFriends(userId);
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    @Override
+    public String saveMsg(ChatMsg chatMsg) {
+
+        com.chimm.muxin.domain.ChatMsg msgDB = new com.chimm.muxin.domain.ChatMsg();
+        String msgId = sid.nextShort();
+        msgDB.setId(msgId);
+        msgDB.setAcceptUserId(chatMsg.getReceiverId());
+        msgDB.setSendUserId(chatMsg.getSenderId());
+        msgDB.setCreateTime(new Date());
+        msgDB.setSignFlag(MsgSignFlagEnum.unsign.type);
+        msgDB.setMsg(chatMsg.getMsg());
+
+        chatMsgMapper.insertSelective(msgDB);
+
+        return msgId;
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    @Override
+    public void updateMsgSigned(List<String> msgIdList) {
+        chatMsgMapper.batchUpdateMsgSigned(msgIdList);
     }
 }
