@@ -80,4 +80,9 @@ public interface UserService {
      * @Description: 批量签收消息
      */
     public void updateMsgSigned(List<String> msgIdList);
+
+    /**
+     * @Description: 获取未签收消息列表
+     */
+    public List<com.chimm.muxin.domain.ChatMsg> getUnReadMsgList(String acceptUserId);
 }
