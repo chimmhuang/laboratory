@@ -5,6 +5,7 @@ import com.chimm.muxin.domain.MyFriends;
 import com.chimm.muxin.domain.Users;
 import com.chimm.muxin.domain.vo.FriendRequestVO;
 import com.chimm.muxin.domain.vo.MyFriendsVO;
+import com.chimm.muxin.enums.MsgActionEnum;
 import com.chimm.muxin.enums.MsgSignFlagEnum;
 import com.chimm.muxin.enums.SearchFriendsStatusEnum;
 import com.chimm.muxin.mapper.ChatMsgMapper;
@@ -12,10 +13,15 @@ import com.chimm.muxin.mapper.FriendsRequestMapper;
 import com.chimm.muxin.mapper.MyFriendsMapper;
 import com.chimm.muxin.mapper.UsersMapper;
 import com.chimm.muxin.netty.ChatMsg;
+import com.chimm.muxin.netty.DataContent;
+import com.chimm.muxin.netty.UserChannelRel;
 import com.chimm.muxin.service.UserService;
 import com.chimm.muxin.utils.FastDFSClient;
 import com.chimm.muxin.utils.FileUtils;
+import com.chimm.muxin.utils.JsonUtils;
 import com.chimm.muxin.utils.QRCodeUtils;
+import io.netty.channel.Channel;
+import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import lombok.extern.slf4j.Slf4j;
 import org.n3r.idworker.Sid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -205,16 +211,16 @@ public class UserServiceImpl implements UserService {
         deleteFriendRequest(sendUserId, acceptUserId);
         deleteFriendRequest(acceptUserId, sendUserId);
 
-//        Channel sendChannel = UserChannelRel.get(sendUserId);
-//        if (sendChannel != null) {
-//            // 使用websocket主动推送消息到请求发起者，更新他的通讯录列表为最新
-//            DataContent dataContent = new DataContent();
-//            dataContent.setAction(MsgActionEnum.PULL_FRIEND.type);
-//
-//            sendChannel.writeAndFlush(
-//                    new TextWebSocketFrame(
-//                            JsonUtils.objectToJson(dataContent)));
-//        }
+        Channel sendChannel = UserChannelRel.get(sendUserId);
+        if (sendChannel != null) {
+            // 使用websocket主动推送消息到请求发起者，更新他的通讯录列表为最新
+            DataContent dataContent = new DataContent();
+            dataContent.setAction(MsgActionEnum.PULL_FRIEND.type);
+
+            sendChannel.writeAndFlush(
+                    new TextWebSocketFrame(
+                            JsonUtils.objectToJson(dataContent)));
+        }
     }
 
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
@@ -255,5 +261,19 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updateMsgSigned(List<String> msgIdList) {
         chatMsgMapper.batchUpdateMsgSigned(msgIdList);
+    }
+
+    @Transactional(propagation = Propagation.SUPPORTS)
+    @Override
+    public List<com.chimm.muxin.domain.ChatMsg> getUnReadMsgList(String acceptUserId) {
+
+        Example chatExample = new Example(com.chimm.muxin.domain.ChatMsg.class);
+        Example.Criteria chatCriteria = chatExample.createCriteria();
+        chatCriteria.andEqualTo("signFlag", 0);
+        chatCriteria.andEqualTo("acceptUserId", acceptUserId);
+
+        List<com.chimm.muxin.domain.ChatMsg> result = chatMsgMapper.selectByExample(chatExample);
+
+        return result;
     }
 }
