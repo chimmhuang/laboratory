@@ -16,9 +16,6 @@ import lombok.extern.slf4j.Slf4j;
  * @date 2019/12/12
  */
 @Slf4j
-/**
- * 若继承 SimpleChannelInboundHandler，则必须实现channelRead0()，如果不想实现，则继承它的父类
- */
 public class HeartBeatHandler extends ChannelInboundHandlerAdapter {
 
     /**
@@ -50,6 +47,5 @@ public class HeartBeatHandler extends ChannelInboundHandlerAdapter {
                 channel.close();
             }
         }
-        super.userEventTriggered(ctx, evt);
     }
 }
