@@ -1,4 +1,4 @@
-package com.chimm.secondexample;
+package com.chimm.example02;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;

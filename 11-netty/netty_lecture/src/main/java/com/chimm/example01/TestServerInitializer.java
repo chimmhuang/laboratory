@@ -1,4 +1,4 @@
-package com.chimm.firstexample;
+package com.chimm.example01;
 
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;

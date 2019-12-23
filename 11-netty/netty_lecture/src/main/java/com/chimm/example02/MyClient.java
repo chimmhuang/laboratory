@@ -1,4 +1,4 @@
-package com.chimm.secondexample;
+package com.chimm.example02;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;

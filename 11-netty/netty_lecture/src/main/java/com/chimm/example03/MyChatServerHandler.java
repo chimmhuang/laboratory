@@ -1,4 +1,4 @@
-package com.chimm.thirdexample;
+package com.chimm.example03;
 
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
@@ -22,7 +22,7 @@ public class MyChatServerHandler extends SimpleChannelInboundHandler<String> {
 
         channelGroup.forEach(ch -> {
             if (channel != ch) {
-                ch.writeAndFlush(channel.remoteAddress() + " 发送的消息：" + msg + "\n");
+                ch.writeAndFlush("【服务器】 - " + channel.remoteAddress() + " 发送的消息：" + msg + "\n");
             } else {
                 ch.writeAndFlush("【自己】" + msg + "\n");
             }
@@ -52,7 +52,7 @@ public class MyChatServerHandler extends SimpleChannelInboundHandler<String> {
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         Channel channel = ctx.channel();
-        System.out.println(channel.remoteAddress() + " 上线\n");
+        System.out.println("【服务器】 - "+channel.remoteAddress() + " 上线\n");
     }
 
     @Override

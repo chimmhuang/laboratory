@@ -1,4 +1,4 @@
-package com.chimm.firstexample;
+package com.chimm.example01;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
