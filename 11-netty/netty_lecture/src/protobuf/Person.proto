@@ -3,7 +3,7 @@ syntax = "proto2";
 package com.chimm.protobuf;
 
 option optimize_for = SPEED;
-option java_package = "com.chimm.example06_protobuf";
+option java_package = "com.chimm.netty.example06_protobuf";
 option java_outer_classname = "MyDataInfo";
 
 
