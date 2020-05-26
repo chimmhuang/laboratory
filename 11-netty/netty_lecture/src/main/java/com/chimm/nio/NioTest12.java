@@ -25,21 +25,24 @@ public class NioTest12 {
         ports[3] = 5003;
         ports[4] = 5004;
 
+        // 创建 Selector 对象
         Selector selector = Selector.open();
 
         for (int i = 0; i < ports.length; i++) {
+
+
             ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();
             // 阻塞off（非阻塞模式）
             serverSocketChannel.configureBlocking(false);
 
 //            // 阻塞通道
-//            SocketChannel socketChannel = serverSocketChannel.accept();
+            SocketChannel socketChannel = serverSocketChannel.accept();
 
             ServerSocket serverSocket = serverSocketChannel.socket();
             InetSocketAddress address = new InetSocketAddress(ports[i]);
             serverSocket.bind(address);
 
-            // 将当前的 Selector 注册到 channel 上面，并且 selectionKey 为 accept
+            // 将当前的 Selector 注册到 channel 上面，并且 selectionKey 为 accept（目的是获取连接）
             serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
 
             System.out.println("监听端口： " + ports[i]);
@@ -49,6 +52,7 @@ public class NioTest12 {
             int numbers = selector.select();
             System.out.println("nuimbers: " + numbers);
 
+            // 返回的是 selected-key set 集合
             Set<SelectionKey> selectionKeys = selector.selectedKeys();
 
             System.out.println("selectedKeys: " + selectionKeys);
@@ -63,6 +67,7 @@ public class NioTest12 {
                     SocketChannel socketChannel = serverSocketChannel.accept();
                     socketChannel.configureBlocking(false);
 
+                    // 将真正链接的对象注册到 socketChannel 种
                     socketChannel.register(selector, SelectionKey.OP_READ);
 
                     iter.remove();

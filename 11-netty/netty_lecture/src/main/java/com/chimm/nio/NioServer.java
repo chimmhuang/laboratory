@@ -10,6 +10,7 @@ import java.nio.channels.SocketChannel;
 import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.UUID;
 
@@ -29,6 +30,7 @@ public class NioServer {
 
         serverSocket.bind(new InetSocketAddress(8899));
 
+        // 创建 Selector 对象
         Selector selector = Selector.open();
 
         // serverSocketChannel 关注 连接事件
@@ -71,12 +73,36 @@ public class NioServer {
                                 String receivedMessage = String.valueOf(charset.decode(readBuffer).array());
 
                                 System.out.println(client + ": " + receivedMessage);
+
+                                String senderKey = null;
+                                for (Entry<String, SocketChannel> entry : clientMap.entrySet()) {
+                                    if (client == entry.getValue()) {
+                                        senderKey = entry.getKey();
+                                        break;
+                                    }
+                                }
+
+                                for (Entry<String, SocketChannel> entry : clientMap.entrySet()) {
+                                    SocketChannel value = entry.getValue();
+
+                                    ByteBuffer writeBuffer = ByteBuffer.allocate(1024);
+                                    writeBuffer.put((senderKey + ": " + receivedMessage).getBytes());
+
+                                    writeBuffer.flip();
+
+                                    value.write(writeBuffer);
+                                }
+
                             }
                         }
+
+                        selectionKeys.remove(selectionKey);
+
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 });
+
 
             } catch (Exception e) {
                 e.printStackTrace();
